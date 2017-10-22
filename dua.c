@@ -15,7 +15,7 @@ void* print(void* arg){
 	int i,j,flag;
 	for(i=lo;i<hi;++i){
 		flag=0;
-		for(j=2;j<lo;++j){
+		for(j=2;j<i;++j){
 			if(i%j==0){
 				flag=1;
 				break;
@@ -34,7 +34,7 @@ int main(int argc, char const *argv[])
 	scanf("%d %d",&atas,&t);
 	while(bawah < atas){
 		lo = bawah;
-		hi = bawah + (atas/t);
+		hi = bawah + (atas/t)-1;
 
 		printf("Thread %d : \n",count++);
 		int iret;
