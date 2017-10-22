@@ -28,8 +28,9 @@ int main(){
 
 	while(1){
 		scanf("%s",temp);
-		if(strcmp(temp,"exit")==0){
-			system("echo quit | netcat localhost 11337 > /dev/null");
+		if(strcmp(temp,"exit")==0 || strcmp(temp,"quit")==0){
+			//system("echo quit | netcat localhost 11337 > /dev/null");
+			system("echo shutdown | netcat localhost 11337 > /dev/null");
 			break;
 		}
 		else if(strcmp(temp,"add")==0){
@@ -67,6 +68,15 @@ int main(){
 		}
 		else if(strcmp(temp,"playlist")==0){
 			system("echo playlist 2 | netcat localhost 11337");
+		}
+		else if(strcmp(temp,"command")==0){
+			char command[10000];
+			char temp2[100];
+			scanf("%s",temp2);
+			strcpy(command,"echo ");
+			strcat(command,nama_file);
+			strcat(command," | netcat localhost 11337 > /dev/null");
+			system(command);
 		}
 	}
 }
