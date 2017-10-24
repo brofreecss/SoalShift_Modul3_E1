@@ -11,13 +11,15 @@ int exit_stat;
 void* makan(void* arg){
 	char* binatang = (char*) arg;
 	exit_stat=0;
-	while((lohan>=0 && lohan<=100) || (kepiting>=0 && kepiting<=100)){
+	while(1){
 		if(strcmp(binatang,"lohan")==0){		//lohan
-			sleep(10);
+			if(lohan <= 0 || lohan > 100 || kepiting <=0 || kepiting> 100)break;
+			sleep(5);
 			lohan-=15;
 		}
-		else{					//kepiting
-			sleep(20);
+		else {					//kepiting
+			if(lohan <= 0 || lohan > 100 || kepiting <=0 || kepiting> 100)break;
+			sleep(5);
 			kepiting-=10;
 		}
 	}
@@ -28,17 +30,21 @@ void* makan(void* arg){
 void* tambah(void* arg){
 	char temp[1000];
 	int jumlah;
-	while((lohan>=0 && lohan<=100) || (kepiting>=0 && kepiting<=100)){
-		printf("%d %d\n",lohan,kepiting);
-		if(exit_stat==1)break;
+	while(1){
 		scanf("%s",temp);
-		scanf("%d",&jumlah);
-		if(strcmp(temp,"lohan")==0){
-			lohan+=jumlah;
+		if(strcmp(temp,"c")==0){
+			printf("%d %d\n",lohan,kepiting);
 		}
 		else{
-			kepiting+=jumlah;
+			scanf("%d",&jumlah);
+			if(strcmp(temp,"lohan")==0){
+				lohan+=jumlah;
+			}
+			else if(strcmp(temp,"kepiting")==0){
+				kepiting+=jumlah;
+			}
 		}
+		if(lohan <= 0 || lohan > 100 || kepiting <=0 || kepiting> 100)break;
 	}
 	return NULL;
 }
