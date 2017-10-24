@@ -7,6 +7,18 @@
 pthread_t test[100];
 
 void faktorial(void* arg){
+   for(int x=1;x<=i;x++)
+    { int angka1=angka[x], angka2=angka[x];
+      while(angka1!=1)
+      { if(angka[x]==0)
+          { angka1=1;
+	    break;
+          }
+	angka1*=angka2-1;
+        angka2--;
+      }
+      printf("Hasil %d!= %d",angka[x],angka1);
+}
 }
 
 int main(){
