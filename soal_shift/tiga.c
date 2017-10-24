@@ -14,12 +14,12 @@ void* makan(void* arg){
 	while(1){
 		if(strcmp(binatang,"lohan")==0){		//lohan
 			if(lohan <= 0 || lohan > 100 || kepiting <=0 || kepiting> 100)break;
-			sleep(5);
+			sleep(10);
 			lohan-=15;
 		}
 		else {					//kepiting
 			if(lohan <= 0 || lohan > 100 || kepiting <=0 || kepiting> 100)break;
-			sleep(5);
+			sleep(20);
 			kepiting-=10;
 		}
 	}
@@ -36,12 +36,12 @@ void* tambah(void* arg){
 			printf("%d %d\n",lohan,kepiting);
 		}
 		else{
-			scanf("%d",&jumlah);
+			//scanf("%d",&jumlah);
 			if(strcmp(temp,"lohan")==0){
-				lohan+=jumlah;
+				lohan+=10;
 			}
 			else if(strcmp(temp,"kepiting")==0){
-				kepiting+=jumlah;
+				kepiting+=10;
 			}
 		}
 		if(lohan <= 0 || lohan > 100 || kepiting <=0 || kepiting> 100)break;
@@ -74,8 +74,8 @@ int main(int argc, char const *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	pthread_join(tid_lohan,NULL);
-	pthread_join(tid_kepiting,NULL);
+//	pthread_join(tid_lohan,NULL);
+//	pthread_join(tid_kepiting,NULL);
 	pthread_join(tid_tambah,NULL);
 
 	printf("udah ~~~\n");
