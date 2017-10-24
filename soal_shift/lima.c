@@ -17,7 +17,12 @@ void* periksa(void* arg){
 	strcat(buffer, needle);			//tambah string yang mau dicari
 	strcat(buffer, " | wc -l");
 
-	printf("%s :" ,needle);
+	char buffer2[1000];
+	strcpy(buffer2,"echo ");
+	strcat(buffer2,needle);
+	strcat(buffer2," : ");
+
+	system(buffer2);
 	system(buffer);
 }
 
