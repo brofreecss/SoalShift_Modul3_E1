@@ -1,12 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <pthread.h>
+#include<stdio.h>
+#include<string.h>
+#include<pthread.h>
+#include<stdlib.h>
+#include<unistd.h>
 
 char nama_file [1000];
 
 void* periksa(void* arg){
-	char* needle = (char*) arg;
+	char* needle;
+	needle = (char*) arg;
 
 	char buffer[10000];
 	strcpy(buffer,"cat ");
@@ -27,10 +29,13 @@ int main(int argc, char const *argv[])
 	strcpy(nama_file,"novel.txt");
 
 	pthread_t tid[10];
+	int tid_stat[10];
 	for(i=0;i<argc-1;++i){
-		tid[i] = pthread_create(&tid[i],NULL,periksa,(void*)argv[i+1]);
-		if(tid[i]){ // jika gagal
+		tid_stat[i] = pthread_create(&tid[i],NULL,periksa,(void*)argv[i+1]);
+		if(tid_stat[i]){ // jika gagal
 			//kasi error
+			fprintf(stderr,"gagal wtf %d\n",tid_stat[i]);
+			exit(EXIT_FAILURE);
 		}
 		pthread_join(tid[i],NULL);
 	}
