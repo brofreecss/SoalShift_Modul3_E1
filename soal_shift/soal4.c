@@ -9,47 +9,52 @@ void *faktorial(void *ptr);
 
 int main(int argc, char const *argv[]){
   pthread_t test[10];
-  int i=0,angka[100],j=0, err;
+  int i=0,j=-1, err;
+  long int angka[100];
   // char c=' ';
   
   for(i=1;i<argc;++i){
     angka[i-1] = strtol(argv[i],NULL,10);
   }
+  // for(i=0;i<argc-1;++i)printf("%ld ",angka[i]);
+  //   printf("\n");
 
   // while(c!='\n'){
   //   scanf("%d%c",&angka[i++],&c);
   // }
 
-  while(j<i)
-      {   //int x= angka[j];
-        j++;
-          err=pthread_create(&(test[j]),NULL,faktorial, &angka[j]);//membuat thread
-          if(err!=0)//cek error
-          {
-              printf("\n can't create thread : [%s]",strerror(err));
-          }
-  	else printf("tr");
+  for(j=0;j<argc-1;++j) {   //int x= angka[j];
+    err=pthread_create(&(test[j]),NULL,faktorial, (void*)angka[j]);//membuat thread
+    if(err!=0)//cek error
+    {
+      printf("\n can't create thread : [%s]",strerror(err));
+    }
+    //else printf("tr");
 
-      }
-  for(int k=1; k<i;k++) {pthread_join(test[i],NULL);}
+//    pthread_join(test[j],NULL);
+  }
+  for(j=0; j<argc-1;++j) {pthread_join(test[j],NULL);}
 }
 
 void *faktorial(void *ptr){
-  int *gege = ptr;
-  int angka1, hasil;
-  int gogo= *gege;
-  while(gogo!=1){ 
+  long int angka1, hasil=1;
+  long int gogo= (long int)ptr;
+//  printf("%ld\n",lim);
+//  while(gogo!=1){ 
     if(gogo==0)
     { 
       hasil=1;
-      break;
     }
-    for(angka1=1;angka1<=gogo;angka1++)
-    {
-      hasil=hasil*angka1;
+    else {
+      for(angka1=1;angka1<=gogo;angka1++){
+        hasil=hasil*angka1;
+//      printf("%ld\n",hasil);
+      }
     }
-  }
-  printf("Hasil %d!= %d",gogo,hasil);
+//  }
+  printf("Hasil %ld!= %ld\n",gogo,hasil);
+
+  return NULL;
 }
 
 
