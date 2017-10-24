@@ -4,40 +4,45 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-pthread_t test[100];
+
 
 void *faktorial(void *ptr);
 
 int main(){
-int i=0,angka[100],j=1, err;
+pthread_t test[10];
+int i=0,angka[100],j=0, err;
 char c=' ';
 while(c!='\n'){
 scanf("%d%c",&angka[i++],&c);
 }
-while(j<=i)//looping membuat thread 2x
-    {   int x= angka[j];
-        err=pthread_create(&(test[j]),NULL,faktorial,(void*) x);//membuat thread
+while(j<i)
+    {   //int x= angka[j];
+	j++;
+        err=pthread_create(&(test[j]),NULL,faktorial, &angka[j]);//membuat thread
         if(err!=0)//cek error
         {
             printf("\n can't create thread : [%s]",strerror(err));
         }
-        j++;
+	else printf("tr");
+
     }
-for(int k=1;k<=i;k++) { pthread_join(test[k],NULL);}
+for(int k=1; k<i;k++) {pthread_join(test[i],NULL);}
 }
 
 void *faktorial(void *ptr){
-      int angka1=ptr, angka2=ptr;
-      while(angka1!=1)
-      { if(ptr==0)
-          { angka1=1;
+      int *gege = ptr;
+      int angka1, hasil;
+     int gogo= *gege;
+      while(gogo!=1)
+      { if(gogo==0)
+          { hasil=1;
             break;
           }
-        angka1*=angka2-1;
-        angka2--;
+	for(angka1=1;angka1<=gogo;angka1++){
+        hasil=hasil*angka1;
+	}
       }
-      printf("Hasil %d!= %d",ptr,angka1);
-return NULL;
+      printf("Hasil %d!= %d",gogo,hasil);
 }
 
 
