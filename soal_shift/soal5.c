@@ -18,9 +18,9 @@ void* periksa(void* arg){
 	strcat(buffer, " | wc -l");
 
 	char buffer2[1000];
-	strcpy(buffer2,"echo ");
+	strcpy(buffer2,"echo -n ");
 	strcat(buffer2,needle);
-	strcat(buffer2," : ");
+	strcat(buffer2,"\" : \"");
 
 	system(buffer2);
 	system(buffer);
@@ -31,18 +31,19 @@ int main(int argc, char const *argv[])
 	int i;
 
 	// jangan lupa input nama file
-	strcpy(nama_file,"novel.txt");
+	strcpy(nama_file,"Novel.txt");
 
-	pthread_t tid[10];
-	int tid_stat[10];
+	pthread_t tid[100];
+	int tid_stat;
 	for(i=0;i<argc-1;++i){
-		tid_stat[i] = pthread_create(&tid[i],NULL,periksa,(void*)argv[i+1]);
-		if(tid_stat[i]){ // jika gagal
+		tid_stat = pthread_create(&tid[i],NULL,periksa,(void*)argv[i+1]);
+		if(tid_stat){ // jika gagal
 			//kasi error
-			fprintf(stderr,"gagal wtf %d\n",tid_stat[i]);
+			fprintf(stderr,"gagal wtf %d\n",tid_stat);
 			exit(EXIT_FAILURE);
 		}
 		pthread_join(tid[i],NULL);
 	}
+//	for(i=0;i<argc-1;++i) 
 	return 0;
 }
