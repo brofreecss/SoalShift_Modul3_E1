@@ -7,6 +7,7 @@
 pthread_t test[100];
 
 void faktorial(void* arg){
+}
 
 int main(){
 int i=0,angka[100],j=1;
