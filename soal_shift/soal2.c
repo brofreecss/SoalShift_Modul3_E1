@@ -37,18 +37,17 @@ int hitung(void){
 
 int main(int argc, char const *argv[])
 {
+	//sebelum mulai game, ada inisialisasi posisi dulu
 	system("clear");
 	printf("Input nama pemain pertama : ");
 	scanf("%s",nama_pemain_satu);
+	system("clear");
+
 	printf("Input nama pemain kedua : ");
 	scanf("%s",nama_pemain_dua);
-
 	system("clear");
 
 	skor_pemain_satu = skor_pemain_dua = 0;
-
-	//sebelum mulai game, ada inisialisasi posisi dulu
-
 
 	unsigned int i,j;
 	for(i=0;;++i){
@@ -63,11 +62,18 @@ int main(int argc, char const *argv[])
 
 			scanf("%d",&query);
 			if(query==1){
-
+				printf("%s : %d\n",nama_pemain_satu,skor_pemain_satu);
+				printf("%s : %d\n",nama_pemain_dua,skor_pemain_dua);
+				printf("Press any key to continue...\n");
+				getchar();
 			}
 			else if(query==2){
-				
+				//tebak dulu, baru masukin ranjau
+				printf("Tebak 4 angka (1-16):\n");
+				scanf("%d %d %d %d",&a,&b,&c,&d);
 			}
+
+			system("clear");
 		}
 		
 	}
