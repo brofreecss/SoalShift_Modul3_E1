@@ -9,15 +9,15 @@ int kepiting;
 int exit_stat;
 
 void* makan(void* arg){
-	char* binatang = (char*) arg;
+	long int binatang = (long int) arg;
 	exit_stat=0;
 	while(1){
-		if(strcmp(binatang,"lohan")==0){		//lohan
+		if(binatang==1){		//lohan
 			if(lohan <= 0 || lohan > 100 || kepiting <=0 || kepiting> 100)break;
 			sleep(10);
 			lohan-=15;
 		}
-		else {					//kepiting
+		else if(binatang==2){	//kepiting
 			if(lohan <= 0 || lohan > 100 || kepiting <=0 || kepiting> 100)break;
 			sleep(20);
 			kepiting-=10;
@@ -31,9 +31,17 @@ void* tambah(void* arg){
 	char temp[1000];
 	int jumlah;
 	while(1){
+		system("clear");
+		printf("lihat : digunakan untuk melihat status sekarang\n");
+		printf("lohan : beri makan lohan (tambah 10)\n");
+		printf("kepiting : beri makan kepiting (tambah 10)\n");
+		printf("manakah pilihanmu, wahai Aidil yang ingin diperhatikan?\n");
 		scanf("%s",temp);
-		if(strcmp(temp,"c")==0){
-			printf("%d %d\n",lohan,kepiting);
+		
+		if(strcmp(temp,"lihat")==0){
+			printf("\nlohan: %d\nkepiting: %d\n",lohan,kepiting);
+			getchar();
+			getchar();
 		}
 		else{
 			//scanf("%d",&jumlah);
@@ -54,14 +62,14 @@ int main(int argc, char const *argv[])
 	pthread_t tid_lohan,tid_kepiting,tid_tambah;
 	int stat;
 	lohan = kepiting = 100;
-	stat = pthread_create(&tid_lohan,NULL,makan,(void*)"lohan");
+	stat = pthread_create(&tid_lohan,NULL,makan,(void*)1);
 
 	if(stat){
 		fprintf(stderr,"error bosqu %d\n",stat);
 		exit(EXIT_FAILURE);
 	}
 
-	stat = pthread_create(&tid_kepiting,NULL,makan,(void*)"kepiting");
+	stat = pthread_create(&tid_kepiting,NULL,makan,(void*)2);
 	
 	if(stat){
 		fprintf(stderr,"error bosqu %d\n",stat);
@@ -74,8 +82,8 @@ int main(int argc, char const *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-//	pthread_join(tid_lohan,NULL);
-//	pthread_join(tid_kepiting,NULL);
+	pthread_join(tid_lohan,NULL);
+	pthread_join(tid_kepiting,NULL);
 	pthread_join(tid_tambah,NULL);
 
 	printf("udah ~~~\n");
