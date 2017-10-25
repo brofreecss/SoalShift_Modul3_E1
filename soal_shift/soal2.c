@@ -39,11 +39,21 @@ void* game(void* arg){
 	return NULL;
 }
 
+void* tampil(void* arg){
+	char dump;
+	printf("%s : %d\n",nama_pemain_satu,skor_pemain[0]);
+	printf("%s : %d\n",nama_pemain_dua,skor_pemain[1]);
+	printf("Press any key to continue...\n");
+	return NULL;
+}
+
 int hitung(void){
 	int j;
 	int count=0;
 	for(j=0;j<16;++j){
 		if(lubang_pemain[0][j]!=0)count++;
+	}
+	for(j=0;j<16;++j){
 		if(lubang_pemain[1][j]!=0)count++;
 	}
 	return count;
@@ -78,18 +88,22 @@ int main(int argc, char const *argv[])
 			printf("2. main\n");
 			printf("Mau ngapain? (1/2): \n");
 
+			pthread_t pt;
+			int err;
+
 			int query;
 			scanf("%d",&query);
+			
 			if(query==1){
+				char dump;
 				printf("%s : %d\n",nama_pemain_satu,skor_pemain[0]);
 				printf("%s : %d\n",nama_pemain_dua,skor_pemain[1]);
 				printf("Press any key to continue...\n");
-				fflush(stdout);
+				getchar();
 				getchar();
 			}
 			else if(query==2){
-				pthread_t pt;
-				int err = pthread_create(&pt,NULL,game,(void*)i);
+				err = pthread_create(&pt,NULL,game,(void*)i);
 				if(err){
 					fprintf(stderr, "error bosqu %d\n", err);
 					exit(EXIT_FAILURE);
