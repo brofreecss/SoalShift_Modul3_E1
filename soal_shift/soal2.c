@@ -14,25 +14,60 @@ int skor_pemain[2];
 pthread_t tid[3];
 
 void pasang(int i){
+	int flag=1;
+
 	int jumlah,temp;
-	printf("Masukkan berapa ranjau yang ingin diletakkan\n");
-	scanf("%d",&jumlah);
-	while(jumlah--){
-		scanf("%d",&temp);
-		lubang_pemain[i%2][temp]=1;
+	while(flag){
+		printf("Masukkan berapa ranjau yang ingin diletakkan\n");
+		scanf("%d",&jumlah);
+		if(jumlah>0 && jumlah<=4)flag=0;
+		else printf("Jumlah invalid\n");
+	}
+	int j,input[4];
+	flag=0;
+
+	for(j=0;j<jumlah;j++){
+		scanf("%d",&input[j]);
+		if(input[j]<=0 || input[j]>16)flag=1;
+
+		if(flag && j==jumlah-1){
+			printf("Angka invalid! pilih ulang\n");
+			flag=0;
+			j=0;
+		}
+	}
+
+	for(j=0;j<jumlah;++j){
+		lubang_pemain[i%2][input[j]]=1;
 	}
 }
 
 void* game(void* arg){
 	//tebak dulu, baru masukin ranjau
 	long int i = (long int)arg;
-	int angka[4],k,berhasil=0,jumlah,temp;
+	int angka[4],k=0,berhasil=0,jumlah,temp;
 	printf("Tebak 4 angka (1-16):\n");
-	for(k=0;k<4;++k) scanf("%d",&angka[k]);
+	int flag=0;
+	for(k=0;k<4;++k) {
+		scanf("%d",&angka[k]);
+		if(angka[k]>0 && angka[k]<=16)continue;
+		else{
+			flag=1;
+		}
+
+		if(flag && k==3){
+			printf("Angka invalid, pilih ulang\n");
+			k=0;
+			flag=0;
+		}
+	}
 	//bisa di assert mungkin?
 
-	for(k=0;k<4;++k)
+
+	berhasil=0;		
+	for(k=0;k<4;++k){
 		(lubang_pemain[(i+1)%2][angka[k]]!=0) ? skor_pemain[i%2]++,berhasil++ : skor_pemain[(i+1)%2]++;
+	}
 
 	printf("Anda berhasil menebak %d dengan benar\n",berhasil);
 	pasang(i);
@@ -110,9 +145,11 @@ int main(int argc, char const *argv[])
 				}
 				pthread_join(pt,NULL);
 				system("clear");
+				fflush(stdin);
 				break;
 			}
 			system("clear");
+
 		}	
 	}
 

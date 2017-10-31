@@ -82,8 +82,8 @@ int main(int argc, char const *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	pthread_join(tid_lohan,NULL);
-	pthread_join(tid_kepiting,NULL);
+	//pthread_join(tid_lohan,NULL);
+	//pthread_join(tid_kepiting,NULL);
 	pthread_join(tid_tambah,NULL);
 
 	printf("udah ~~~\n");
